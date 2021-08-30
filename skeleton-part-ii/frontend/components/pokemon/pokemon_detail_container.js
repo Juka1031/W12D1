@@ -1,15 +1,22 @@
 import {connect} from 'react-redux';
 import { requestPokemon } from '../../actions/pokemon_actions';
-import pokemonDetail from './pokemon_detail';
+import PokemonDetail from './pokemon_detail';
 
-const mapSTP = state => ({
+
+const mapSTP = (state, ownProps) => {
+    // debugger
+    // console.log(ownProps)
+    return{
+        pokemon: state.entities.pokemon[ownProps.match.params.id],
+        moves: state.entities.moves,
+        items:  state.entities.items //{items: items...}
+    }
+}
+
+const mapDTP = (dispatch, ownProps) => ({
     
-
-})
-
-const mapDTP = dispatch => ({
-
+    fetchPokemon : (pokeID) => dispatch(requestPokemon(pokeID))
 })
 
 
-export default connect(mapSTP, mapDTP)(pokemonDetail)
+export default connect(mapSTP, mapDTP)(PokemonDetail)
